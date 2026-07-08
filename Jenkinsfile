@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
-                echo 'Source code checked out from GitHub'
+                git 'https://github.com/DivyaMargouni/employee-portal.git'
             }
         }
 
@@ -13,14 +14,17 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t employee-portal:latest .'
+            }
+        }
     }
 
     post {
         success {
-            echo 'Build Successful!'
-        }
-        failure {
-            echo 'Build Failed!'
+            echo 'Docker image created successfully!'
         }
     }
 }
