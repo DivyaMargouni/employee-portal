@@ -30,13 +30,7 @@ pipeline {
     }
 }
 
-        stage('Deploy Docker Container') {
-            steps {
-                sh 'docker stop employee-portal || true'
-                sh 'docker rm employee-portal || true'
-                sh 'docker run -d --name employee-portal -p 8082:80 employee-portal:latest'
-            }
-        }
+    
     }
 
     post {
