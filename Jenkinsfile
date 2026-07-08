@@ -5,7 +5,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/DivyaMargouni/employee-portal.git'
+                checkout scm
             }
         }
 
