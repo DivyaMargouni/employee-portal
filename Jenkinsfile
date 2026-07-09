@@ -17,12 +17,12 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t employee-portal:latest .'
+                 sh 'minikube image load employee-portal:latest'
             }
         }
        stage('Deploy to Kubernetes') {
     steps {
-        sh 'minikube image load employee-portal:latest'
+        sh 'eval $(minikube docker-env) && docker build -t employee-portal:latest .'
         sh 'kubectl apply -f k8s/deployment.yaml'
         sh 'kubectl apply -f k8s/service.yaml'
         sh 'kubectl rollout restart deployment employee-portal'
